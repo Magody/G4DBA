@@ -1,3 +1,23 @@
+--Pregunta 3
+USE G4Lab2DB
+GO
+DECLARE @table_t AS TABLE(num INT, nom VARCHAR(50));
+
+INSERT INTO @table_t SELECT numero_fabrica, nombre FROM (
+	SELECT numero_fabrica, nombre FROM [dbo].[catalogo.Fabrica]) AS Q;
+
+SELECT * FROM @table_t;
+ALTER TABLE [dbo].[catalogo.Fabrica] DROP COLUMN [nombre];
+
+ALTER TABLE [dbo].[catalogo.Fabrica] ADD [contacto] VARCHAR(50);
+
+ALTER TABLE [dbo].[catalogo.Fabrica] ADD [nombre] VARCHAR(50);
+
+
+UPDATE [dbo].[catalogo.Fabrica] SET nombre = (SELECT nom FROM @table_t WHERE num=numero_fabrica)
+
+GO
+
 --Pregunta 4
 USE master
 GO
